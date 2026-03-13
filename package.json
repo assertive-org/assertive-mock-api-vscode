@@ -4,11 +4,25 @@
   "description": "A VS Code extension for the Assertive Mock API",
   "version": "0.0.1",
   "publisher": "assertive",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/assertive-org/assertive-mock-api-vscode"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "Testing",
+    "Network"
+  ],
+  "keywords": [
+    "mock",
+    "api",
+    "testing",
+    "stubs",
+    "rest",
+    "json"
   ],
   "activationEvents": [
     "onCommand:assertive-mock-api-vscode.refreshStubs"
@@ -188,6 +202,7 @@
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
     "@vscode/test-electron": "^2.3.9",
+    "@vscode/vsce": "^3.7.1",
     "eslint": "^10.0.3",
     "glob": "^10.3.10",
     "mocha": "^11.3.0",
