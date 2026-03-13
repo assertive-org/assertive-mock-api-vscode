@@ -1,20 +1,25 @@
-# Assertive Mock API VS Code Extension
+# Assertive Mock API for VS Code
 
-A VS Code extension to manage and monitor your [Assertive Mock API](https://github.com/peter-daly/assertive-mock-api) server directly from your editor.
+This extension provides a sidebar interface for managing and monitoring the [Assertive Mock API](https://github.com/peter-daly/assertive-mock-api) server within VS Code.
 
 ## Features
 
-### 🛠 Stub Management
-- View all active stubs grouped by **Scope** (Global, Scoped).
-- Visualizes HTTP Method, Path, and Criteria (e.g., regex matchers).
-- **Delete Stubs**: Remove stubs instantly from the sidebar.
-- **View Details**: Inspect the full stub configuration in a JSON editor.
+*   **Request Log**: Displays a history of incoming requests with visual indicators for matches (✅) and failures (⚠️).
+*   **Stub Management**: Tree view for browsing, inspecting, and deleting global or scoped stubs.
+*   **Stub Wizard**: A multi-step interface for creating new stubs.
+*   **Adaptive Polling**: Synchronizes with the local server based on view visibility (higher frequency when the sidebar is open).
 
-### 📝 Request Logging
-- Monitor incoming requests in real-time.
-- **Matched vs Unmatched**: Clear visual indicators (✅/⚠️) show if a request matched a stub.
-- **Scope Grouping**: See requests partitioned by their respective scopes.
-- **Deep Inspection**: Click any request to see headers, body, query params, and which stub ID it matched.
+## Setup
 
-### ⚡️ Real-time Synchronization
-- **Adaptive Polling**: The extension refreshes every **500ms** when the sidebar is visible and slows down to **3 seconds** when hidden to save resources while staying in sync with the server.
+1.  **Start the server**: Ensure the mock server is running (e.g., `docker compose up -d`).
+2.  **Configure Port**: Open the **Assertive Mock API** view in the Activity Bar. You will be prompted for the server port (default is `8910`).
+3.  **Usage**: Stubs and request history will populate automatically once the port is set.
+
+## Available Commands
+
+| Command | Action |
+| :--- | :--- |
+| `Update Port` | Updates the connection port for the server. |
+| `Open in browser` | Opens the server's web admin interface. |
+| `Create Stub` | Launches the stub creation wizard. |
+| `Filter Requests` | Filters the request log by all, matched, or unmatched. |

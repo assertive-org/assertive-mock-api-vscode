@@ -2,9 +2,10 @@
   "name": "assertive-mock-api-vscode",
   "displayName": "Assertive Mock API VS Code Extension",
   "description": "A VS Code extension for the Assertive Mock API",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "assertive",
   "license": "MIT",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/assertive-org/assertive-mock-api-vscode"
