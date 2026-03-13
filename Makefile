@@ -1,4 +1,4 @@
-.PHONY: install-dev-deps test lint seed-data launch compile start-server stop-server clean
+.PHONY: install-dev-deps test lint ci seed-data compile start-server stop-server launch clean package install-local
 
 # Install development dependencies
 install-dev-deps:
@@ -17,6 +17,7 @@ lint:
 
 # Run CI (lint, compile, and test)
 ci: lint compile test
+
 # Note: Ensure the server is running (make start-server) before seeding.
 seed-data:
 	@echo "Seeding sample data to the mock server..."
@@ -43,7 +44,21 @@ launch: compile
 	@echo "Launching VS Code extension development host..."
 	@code --extensionDevelopmentPath=$(PWD)
 
-# Clean up build artifacts
+# Package the extension into a .vsix file
+package: compile
+	@echo "Packaging extension..."
+	@npx vsce package
+
+# Package and install the extension locally for final testing
+# This will uninstall any previous version first.
+install-local: package
+	@echo "Uninstalling existing extension (if any)..."
+	@code --uninstall-extension assertive.assertive-mock-api-vscode || true
+	@echo "Installing local .vsix..."
+	@code --install-extension assertive-mock-api-vscode-$$(node -p "require('./package.json').version").vsix
+
+# Clean up build artifacts and packaged extensions
 clean:
-	@echo "Cleaning up build artifacts..."
+	@echo "Cleaning up build artifacts and .vsix files..."
 	@rm -rf out
+	@rm -f *.vsix
