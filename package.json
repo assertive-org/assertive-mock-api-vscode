@@ -1,0 +1,197 @@
+{
+  "name": "assertive-mock-api-vscode",
+  "displayName": "Assertive Mock API VS Code Extension",
+  "description": "A VS Code extension for the Assertive Mock API",
+  "version": "0.0.1",
+  "publisher": "assertive",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:assertive-mock-api-vscode.refreshStubs"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "assertive-mock-api",
+          "title": "Assertive Mock API",
+          "icon": "$(server-process)"
+        }
+      ]
+    },
+    "views": {
+      "assertive-mock-api": [
+        {
+          "id": "assertive-mock-api-unified",
+          "name": "Assertive Mock API"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "assertive-mock-api-unified",
+        "contents": "No stubs found.\n[Create Stub](command:assertive-mock-api-vscode.createStub)",
+        "when": "!assertive-mock-api-vscode.hasStubs"
+      }
+    ],
+    "configuration": {
+      "title": "Assertive Mock API",
+      "properties": {
+        "assertive-mock-api-vscode.port": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "description": "The port the Assertive Mock API server is running on (e.g., 8910)."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "assertive-mock-api-vscode.refreshAll",
+        "title": "Refresh All",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.createStub",
+        "title": "Create Stub",
+        "icon": "$(add)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.updatePort",
+        "title": "Update Port",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.openAdminPage",
+        "title": "Open in browser",
+        "icon": "$(browser)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.deleteStub",
+        "title": "Delete Stub",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.deleteScope",
+        "title": "Delete Scope",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.startPolling",
+        "title": "Start Polling",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.stopPolling",
+        "title": "Stop Polling",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.filterRequestsAll",
+        "title": "Show All Requests",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.filterRequestsMatched",
+        "title": "Show Only Matched",
+        "icon": "$(check)"
+      },
+      {
+        "command": "assertive-mock-api-vscode.filterRequestsUnmatched",
+        "title": "Show Only Unmatched",
+        "icon": "$(warning)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "assertive-mock-api-vscode.refreshAll",
+          "when": "view == assertive-mock-api-unified",
+          "group": "navigation@1"
+        },
+        {
+          "command": "assertive-mock-api-vscode.startPolling",
+          "when": "view == assertive-mock-api-unified && !assertive-mock-api-vscode.pollingEnabled",
+          "group": "navigation@3"
+        },
+        {
+          "command": "assertive-mock-api-vscode.stopPolling",
+          "when": "view == assertive-mock-api-unified && assertive-mock-api-vscode.pollingEnabled",
+          "group": "navigation@3"
+        },
+        {
+          "command": "assertive-mock-api-vscode.openAdminPage",
+          "when": "view == assertive-mock-api-unified",
+          "group": "navigation@4"
+        },
+        {
+          "command": "assertive-mock-api-vscode.updatePort",
+          "when": "view == assertive-mock-api-unified",
+          "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "assertive-mock-api-vscode.createStub",
+          "when": "view == assertive-mock-api-unified && viewItem == stubs",
+          "group": "inline"
+        },
+        {
+          "command": "assertive-mock-api-vscode.filterRequestsMatched",
+          "when": "view == assertive-mock-api-unified && viewItem == requests && assertive-mock-api-vscode.requestFilter == 'all'",
+          "group": "inline"
+        },
+        {
+          "command": "assertive-mock-api-vscode.filterRequestsUnmatched",
+          "when": "view == assertive-mock-api-unified && viewItem == requests && assertive-mock-api-vscode.requestFilter == 'matched'",
+          "group": "inline"
+        },
+        {
+          "command": "assertive-mock-api-vscode.filterRequestsAll",
+          "when": "view == assertive-mock-api-unified && viewItem == requests && assertive-mock-api-vscode.requestFilter == 'unmatched'",
+          "group": "inline"
+        },
+        {
+          "command": "assertive-mock-api-vscode.deleteStub",
+          "when": "view == assertive-mock-api-unified && viewItem == stub",
+          "group": "inline"
+        },
+        {
+          "command": "assertive-mock-api-vscode.deleteScope",
+          "when": "view == assertive-mock-api-unified && viewItem == scope",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^10.0.3",
+    "glob": "^10.3.10",
+    "mocha": "^11.3.0",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.57.0"
+  }
+}

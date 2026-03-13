@@ -1,0 +1,6 @@
+services:
+  mock-api-server:
+    image: ghcr.io/peter-daly/assertive-mock-api/server:latest
+    platform: linux/amd64
+    ports:
+      - "8911:8910"
